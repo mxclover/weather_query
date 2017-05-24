@@ -25,6 +25,8 @@ def index():
 			return render_template('index.html',info=help_info)
 	return render_template('index.html',info=weather)
 
+history_list = []
+
 def get_weather(city_name):
 	result = requests.get('https://api.thinkpage.cn/v3/weather/now.json',
 		params={
@@ -43,8 +45,6 @@ def get_weather(city_name):
 		return [city + ' ' + city_text+ ' ' + city_temperature + '°C']
 	else:
 		return ['对不起，您输入的城市不在查询范围内，请重新输入。']
-
-history_list = []
 
 def get_history():
 	return history_list
