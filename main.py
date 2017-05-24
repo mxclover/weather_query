@@ -11,6 +11,21 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
+@app.route('/', methods=['GET','POST'])
+def index():
+	weather = ''
+	if request.method == 'POST':
+		if 'query' in request.form.keys():
+			city_name = request.form['city_name']
+			weather = get_weather(city_name)
+		elif 'history' in request.form.keys(): 
+			history_info = get_history()
+			return render_template('index.html',info=history_info)
+		elif 'help' in request.form.keys():
+			help_info = get_help()
+			return render_template('index.html',info=help_info)
+	return render_template('index.html',info=weather)
+
 def get_weather(city_name):
 	result = requests.get('https://api.thinkpage.cn/v3/weather/now.json',
 		params={
@@ -38,7 +53,7 @@ def get_history():
 def get_help():
 	info_help = ["请输入城市名，获取该城市最新天气情况", "点击「帮助」，获取帮助信息", "点击「历史」，获取历史查询信息"]
 	return info_help
-	
+
 
 if __name__ == '__main__':
     app.run(debug=True)
