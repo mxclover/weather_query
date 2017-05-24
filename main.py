@@ -35,5 +35,10 @@ history_list = []
 def get_history():
 	return history_list
 
+def get_help():
+	info_help = ["请输入城市名，获取该城市最新天气情况", "点击「帮助」，获取帮助信息", "点击「历史」，获取历史查询信息"]
+	return info_help
+	
+
 if __name__ == '__main__':
     app.run(debug=True)
