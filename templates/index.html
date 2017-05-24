@@ -1,0 +1,25 @@
+<html>
+	<head>
+		<title>实时天气查询系统</title>
+		<style type="text/css">
+		body {text-align: center}
+		</style>
+	</head>
+
+	<body>	
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<h1>天气查询系统</h1>
+		<form action="/" method="POST">
+			<label>请输入城市名：</label>
+			<input type="text" name="city_name">
+			<input type="submit" name="query" value="查询">
+			<input type="submit" name="history" value="历史">
+			<input type="submit" name="help" value="帮助">
+			<br>
+			{% for message in info %}
+			<br>{{message}}</br>
+			{% endfor %}
+		</form>
+	</body>
+</html>
+
