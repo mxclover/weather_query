@@ -8,8 +8,10 @@ import requests
 import json
 import psycopg2
 from flask import Flask, render_template, request
+from flask.ext.bootstrap import Bootstrap
 
 app = Flask(__name__)
+bootstrap = Bootstrap(app)
 
 @app.route('/', methods=['GET','POST'])
 def index():
