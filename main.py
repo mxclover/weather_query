@@ -6,6 +6,7 @@
 import os
 import requests
 import json
+import psycopg2
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
@@ -34,7 +35,10 @@ def get_weather(city_name):
 		'location': city_name,
 		'language': 'zh-Hans',
 		'unit': 'c'
-		})								
+		})	
+	result.raise_for_status()
+	result.text
+	print(result.text)
 
 	if result.status_code == 200:
 		data = result.json()
