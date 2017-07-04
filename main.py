@@ -12,7 +12,7 @@ from flask import Flask, render_template, request
 app = Flask(__name__)
 
 @app.route('/', methods=['GET','POST'])
-def home():
+def index():
 	weather = ''
 	if request.method == 'POST':
 		if 'query' in request.form.keys():
@@ -20,11 +20,11 @@ def home():
 			weather = get_weather(city_name)
 		elif 'history' in request.form.keys(): 
 			history_info = get_history()
-			return render_template('home.html',info=history_info)
+			return render_template('user.html',info=history_info)
 		elif 'help' in request.form.keys():
 			help_info = get_help()
-			return render_template('home.html',info=help_info)
-	return render_template('home.html',info=weather)
+			return render_template('user.html',info=help_info)
+	return render_template('user.html',info=weather)
 
 history_list = []
 
