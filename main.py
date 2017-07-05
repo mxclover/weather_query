@@ -2,16 +2,24 @@
 #!/usr/bin/env python
 '''部署在Heroku上的在线实时天气查询应用
 调用心知天气API(https://www.seniverse.com/doc#now)
+可在线查询国内2567个市区县的实时天气状况
 '''
 import os
 import requests
 import json
-import psycopg2
 from flask import Flask, render_template, request
 from flask.ext.bootstrap import Bootstrap
 
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
+
+@app.errorhandler(404)
+def page_not_found(e):
+	return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def internal_sever_error(e):
+	return render_template('500.html'), 500
 
 @app.route('/', methods=['GET','POST'])
 def index():
@@ -31,7 +39,7 @@ def index():
 history_list = []
 
 def get_weather(city_name):
-	result = requests.get('https://api.thinkpage.cn/v3/weather/now.json',
+	result = requests.get('https://api.seniverse.com/v3/weather/now.json',
 		params={
 		'key': 'rirkq6fizk96iefr',
 		'location': city_name,
@@ -47,10 +55,12 @@ def get_weather(city_name):
 		city = data['results'][0]['location']['name']
 		city_temperature = data['results'][0]['now']['temperature']
 		city_text = data['results'][0]['now']['text'] 
+		time = data['results'][0]['last_update']
+
 		history_list.append(city + ' ' + city_text + ' ' + city_temperature + '°C')
-		return [city + ' ' + city_text+ ' ' + city_temperature + '°C']
+		return [city + ' ' + city_text+ ' ' + city_temperature + '°C','\n',"更新时间:" + ' ' + time[:10] + ' ' + time[11:16]]
 	else:
-		return ['对不起，您输入的城市不在查询范围内，请重新输入。']
+		return ["对不起，您输入的城市不在查询范围内，请重新输入"]
 
 def get_history():
 	return history_list

@@ -1,32 +1,10 @@
-{% extends 'bootstrap/base.html' %}
+{% extends 'base.html' %}
 
 {% block title %}天气查询{% endblock %}
 
-{% block navbar %}
-<div class="navbar navbar-inverse" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle"
-            data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">天气查询</a>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="/">数据来源于心知天气</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
-{% endblock %}
-
-{% block content %}
+{% block page_content %}
 <div class="container">
-    <div class="page-header">
+    <div class="page-content">
         {% include 'home.html' %}
     </div>
 </div>
